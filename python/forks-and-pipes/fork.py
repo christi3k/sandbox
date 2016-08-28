@@ -23,7 +23,6 @@ for func in functions:
     pid = os.fork()
     if pid == 0:
         result = func()
-        # without this .flush(), we won't see output from three() when run via ssh
-        sys.stdout.flush()
-        os._exit(result)
+        # When using sys.exit(), no flushing needed!
+        sys.exit()
     pids.append(pid)
